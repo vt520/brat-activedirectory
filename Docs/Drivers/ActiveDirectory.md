@@ -1,5 +1,14 @@
 ﻿# Brat - Active Directory Driver
 
+## Configuration and Use
+Currently the ActiveDirectory driver has no user configurable options
+
+To use; copy ActiveDirectory.dll to the Drivers/ folder in your Brat installation and use the following in your scriptlet
+
+```javascript
+	ConnectDriver("ActiveDirectory");
+```
+
 ## Scriptlet API
 
 ### *ActiveDirectoryUser*[] **AD_GetActiveUsers** ( )
