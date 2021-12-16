@@ -15,11 +15,13 @@ To use; copy ActiveDirectory.dll to the Drivers/ folder in your Brat installatio
 
 Returns a list of all Current Users in Active Directory using the following LDAP Criteria
 ```
-	objectCategory: User
-	objectClass: person
-	userAccountControl: ! 0x02
-	userPrincipalName: ! null
-	homeDirectory: ! null
+	(&
+		(objectCategory=User)
+		(objectClass=person)
+		(userAccountControl:1.2.840.113556.1.4.803:=2)
+		(userPrincipalName=*)
+		(homeDirectory=*)
+	)
 ```
 
 Sample Usage
