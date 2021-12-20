@@ -1,11 +1,22 @@
 ﻿ConnectDriver("ActiveDirectory");
 ConnectDriver("Box");
-let test = AllUsersByEmail();
-LogMessage("All Users", LogFlags.Important, { users: test });
+let boxUsers = AllUsersByEmail();
+let adUsers = AD_GetActiveUsers();
+let missingADUsers = [];
+let missingBoxUsers = [];
 
-let user1 = AD_GetUser("mark@energyservices.org");
-let user2 = AD_GetUser("CN=Gulam Sabirov,OU=Management,OU=Accounts,DC=energyservices,DC=org");
-let user3 = AD_GetUser("Patrice Roduner");
-let groups = AD_GetGroups();
-LogMessage("Testing", LogFlags.Important, { users: [user1, user2, user3], groups: groups });
+for (const adUser of adUsers) {
+    //LogMessage("User", LogFlags.Important, adUser);
+    let email = String(adUser.Email.Value).toLowerCase();
+    let boxUser = boxUsers[email];
+    if (boxUser == null) {
+        missingADUsers.push(email);
+    }
+}
 
+LogMessage("Active Directory Users without a Box Login",
+    LogFlags.Important,
+    {
+        users: missingADUsers
+    }
+);

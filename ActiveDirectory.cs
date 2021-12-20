@@ -11,6 +11,7 @@ namespace Brat.Drivers {
             DirectoryEntry ad_Info  = new DirectoryEntry("LDAP://RootDSE");
             Connection = new DirectoryEntry($"LDAP://{ad_Info.Properties["defaultNamingContext"][0]}");
             api = new ActiveDirectoryAPI(this);
+            Running = true;
         }
         public override DriverAPI GetAPI() {
             return api;

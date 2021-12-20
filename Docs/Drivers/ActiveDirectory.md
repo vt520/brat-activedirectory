@@ -11,7 +11,7 @@ To use; copy ActiveDirectory.dll to the Drivers/ folder in your Brat installatio
 
 ## Scriptlet API
 
-### *ActiveDirectoryUser*[] **AD_GetActiveUsers** ( )
+### *ActiveDirectoryUsers* **AD_GetActiveUsers** ( )
 
 Returns a list of all Current Users in Active Directory using the following LDAP Criteria
 ```
@@ -27,9 +27,9 @@ Returns a list of all Current Users in Active Directory using the following LDAP
 Sample Usage
 ```javascript
 	let CurrentUsers = AD_GetActiveUsers();
-	CurrentUsers.forEach(user => {
+	for(const user of CurrentUsers) {
 		if(user.Location == "Watsonville") { ... }
-	});
+	}
 ```
 
 ### *ActiveDirectoryUser* **AD_GetUser** ( *identifier* )
@@ -57,10 +57,10 @@ Returns an array of all groups in the Active Directory
 
 Sample Usage
 ```javascript
-	let CurrentGroups = AD_GetGroups();
-	CurrentGroups.forEach(group => {
+	let CurrentGroups = Array.from(AD_GetGroups());
+	for(const group of CurrentGroups) {
 		if(group.Memebers.Count == 0) { ... }
-	});
+	}
 ```
 
 ### *ActiveDirectoryGroup* **AD_GetGroup** ( *identifier* ) 
@@ -68,9 +68,9 @@ Returns a single group record, if and only if, the provided identifier maps to a
 Sample Usage
 ```javascript
 	let Administrators = AD_GetGroup("Administrators");
-	Administrators.Members.forEach(ldapName => {
+	for(const ldapName of Administrators.Members) {
 		let user = AD_GetUser(ldapName);
-		let boxUser = box.UserDetails(user.Email);
+		let boxUser = __box.UserDetails(user.Email);
 		...
-	});
+	}
 ```

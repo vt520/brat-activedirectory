@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 
 namespace Brat.Drivers {
     partial class ActiveDirectoryAPI {
-        public List<ActiveDirectoryGroup> AD_GetGroups() {
-            List<ActiveDirectoryGroup> results = new List<ActiveDirectoryGroup>();
+        public dynamic AD_GetGroups() {
+            JArray results = new JArray();
             DirectorySearcher query = AD_CreateGroupQuery();
             query.Filter = "(&(objectClass=group))";
 
             foreach (SearchResult user_record in query.FindAll()) {
-                results.Add(new ActiveDirectoryGroup(user_record));
+                results.Add(
+                    JToken.FromObject(
+                        new ActiveDirectoryGroup(user_record)
+                    )
+                );
             }
             return results;
         }

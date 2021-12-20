@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Brat.Drivers {
     partial class ActiveDirectoryAPI {
-        public List<ActiveDirectoryUser> AD_GetActiveUsers() {
-            List<ActiveDirectoryUser> results = new List<ActiveDirectoryUser>();
+        public JArray AD_GetActiveUsers() {
+            JArray results = new JArray();
             DirectorySearcher query = AD_CreateUserQuery();
             query.Filter = "(&(objectCategory=User)(objectClass=person)(!userAccountControl:1.2.840.113556.1.4.803:=2)(userPrincipalName=*)(homeDirectory=*))";
 
